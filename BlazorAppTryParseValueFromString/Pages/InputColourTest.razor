@@ -1,0 +1,26 @@
+﻿@using BlazorAppTryParseValueFromString.Component
+@using System.Drawing
+
+@page "/InputColourTest"
+
+<EditForm Model=CurrentPerson>
+  <InputColour @bind-Value=CurrentPerson.FavouriteColour/>
+</EditForm>
+
+Favourite colour is @CurrentPerson.FavouriteColour
+<div style="width:100px;height:100px;background-colour:@ColourAsHex"/>
+
+@code {
+
+  Person CurrentPerson = new Person
+  {
+    FavouriteColour = Color.Green
+  };
+
+  string ColourAsHex => InputColour.ColourToString(CurrentPerson.FavouriteColour);
+
+  class Person
+  {
+    public Color FavouriteColour { get; set; }
+  }
+}

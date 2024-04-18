@@ -1,0 +1,30 @@
+﻿@inherits InputBase<int?>
+
+
+<div>
+	<input type="text" @bind=CurrentValue />
+</div>
+
+@code {
+	protected override bool TryParseValueFromString(string? value, out int? result, out string validationErrorMessage)
+	{
+		validationErrorMessage = "";
+		result = null;
+
+		if (string.IsNullOrWhiteSpace(value))
+		{
+			return true;
+		}
+
+		int parsedInt;
+
+		if (!int.TryParse(value.Trim(), out parsedInt))
+		{
+			validationErrorMessage = "Invalid value!";
+			return false;
+		}
+
+		result = parsedInt;
+		return true;
+	}
+}

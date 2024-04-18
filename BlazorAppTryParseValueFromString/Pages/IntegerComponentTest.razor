@@ -1,0 +1,41 @@
+﻿@page "/IntegerComponentTest"
+@using BlazorAppTryParseValueFromString.Component
+
+
+
+<PageTitle>Index</PageTitle>
+
+<EditForm Model="myModel" OnValidSubmit="FormSubmit">
+
+	<ValidationSummary />	
+	<p>
+		<IntegerComponent @bind-Value=myModel.MyNumber />
+	</p>
+
+	<p>
+		<input type="submit" value="Go" />
+		<ValidationMessage For="() => myModel.MyNumber" />
+	</p>
+
+	<p>
+		@Result
+	</p>
+
+</EditForm>
+
+@code {
+	public class MyModel
+	{
+		public int? MyNumber { get; set; }
+	}
+
+	public string Result { get; set; } = "";
+
+	public MyModel myModel { get; set; } = new();
+
+	public async void FormSubmit()
+	{
+		string yourNumber = myModel.MyNumber.HasValue ? myModel.MyNumber.Value.ToString() : "nothing";
+		Result = $"Your number was {yourNumber}";
+	}
+}
